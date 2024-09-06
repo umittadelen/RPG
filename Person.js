@@ -19,7 +19,7 @@ class Person extends GameObject {
 
         if (this.isPlayerControlled && this.movingProgressRemaining === 0 && state.arrow) {
             this.direction = state.arrow;
-            this.movingProgressRemaining = 16;
+            this.movingProgressRemaining = 2;
         }
     }
 
