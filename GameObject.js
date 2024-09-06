@@ -9,7 +9,7 @@ class GameObject {
         this.sprite = new Sprite({
             gameObject: this,
             src: config.src || "./assets/walk and idle.png",
-            shadow: config.shadow || "/assets/empty.png",
+            shadow: config.shadow || "./assets/empty.png",
         });
     }
 
