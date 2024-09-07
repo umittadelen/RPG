@@ -1,7 +1,7 @@
 class Sprite{
     constructor(config){
 
-        //Setup the image
+        //Set up the image
         this.image = new Image();
         this.image.src = config.src;
         this.image.onload = () => {
@@ -24,10 +24,10 @@ class Sprite{
             "idle-right": [[0,2]],
             "idle-up": [[0,1]],
             "idle-left": [[0,3]],
-            "walk-down": [[1,0],[0,0],[3,0],[0,0]],
-            "walk-right": [[1,2],[0,2],[3,2],[0,2]],
-            "walk-up": [[1,1],[0,1],[3,1],[0,1]],
-            "walk-left": [[2,3],[0,3],[3,3],[0,3]]
+            "walk-down": [[1,0],[2,0],[3,0],[0,0]],
+            "walk-right": [[1,2],[2,2],[3,2],[0,2]],
+            "walk-up": [[1,1],[2,1],[3,1],[0,1]],
+            "walk-left": [[1,3],[2,3],[3,3],[0,3]]
         }
         this.currentAnimation = config.currentAnimation || "idle-down";
         this.currentAnimationFrame = 0;
@@ -35,25 +35,26 @@ class Sprite{
         this.animationFrameLimit = config.animationFrameLimit || 16;
         this.animationFrameProgress = this.animationFrameLimit;
 
-        //Refrence the game object
+
+        //Reference the game object
         this.gameObject = config.gameObject;
     }
 
-    get frame(){
-        return this.animations[this.currentAnimation][this.currentAnimationFrame];
+    get frame() {
+        return this.animations[this.currentAnimation][this.currentAnimationFrame]
     }
 
-    setAnimation(key){
-        if (this.currentAnimation !== key){
+    setAnimation(key) {
+        if (this.currentAnimation !== key) {
             this.currentAnimation = key;
             this.currentAnimationFrame = 0;
             this.animationFrameProgress = this.animationFrameLimit;
         }
     }
 
-    updateAnimationProgress(){
+    updateAnimationProgress() {
         //Downtick frame progress
-        if (this.animationFrameProgress > 0){
+        if (this.animationFrameProgress > 0) {
             this.animationFrameProgress -= 1;
             return;
         }
@@ -62,20 +63,22 @@ class Sprite{
         this.animationFrameProgress = this.animationFrameLimit;
         this.currentAnimationFrame += 1;
 
-        if (this.frame === undefined){
-            this.currentAnimationFrame = 0;
+        if (this.frame === undefined) {
+            this.currentAnimationFrame = 0
         }
+
+
     }
 
-    draw(ctx){
-        const x = this.gameObject.x;
-        const y = this.gameObject.y - 12;
+    draw(ctx, cameraPerson) {
+        const x = this.gameObject.x + utils.withGrid(8) - cameraPerson.x;
+        const y = this.gameObject.y - 12 + utils.withGrid(8) - cameraPerson.y;
         const width = this.gameObject.width;
         const height = this.gameObject.height;
 
         this.isShadowLoaded && ctx.drawImage(this.shadow, x, y)
 
-        const [frameX,  frameY] = this.frame;
+        const [frameX, frameY] = this.frame;
 
         this.isLoaded && ctx.drawImage(this.image,
             frameX*width,frameY*height,          // left|top cut
@@ -86,4 +89,5 @@ class Sprite{
 
         this.updateAnimationProgress();
     }
+    
 }

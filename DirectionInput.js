@@ -3,15 +3,15 @@ class DirectionInput {
     this.heldDirections = []; 
 
     this.map = {
-      ArrowUp: "up",
-      KeyW: "up",
-      ArrowDown: "down",
-      KeyS: "down",
-      ArrowLeft: "left",
-      KeyA: "left",
-      ArrowRight: "right",
-      KeyD: "right",
-    };
+      "ArrowUp": "up",
+      "KeyW": "up",
+      "ArrowDown": "down",
+      "KeyS": "down",
+      "ArrowLeft": "left",
+      "KeyA": "left",
+      "ArrowRight": "right",
+      "KeyD": "right",
+    }
   }
 
   get direction() {
@@ -31,6 +31,8 @@ class DirectionInput {
         if (index > -1) {
             this.heldDirections.splice(index, 1);
         }
-    });
+    })
+    
   }
+
 }
