@@ -3,7 +3,7 @@ const utils = {
         return n * 16;
     },
     asGridCoord(x,y) {
-        return `${x*16},${y*16}`
+        return `${x*16},${y*16+16}`
     },
     nextPosition(initialX, initialY, direction) {
         let x = initialX;
@@ -19,6 +19,12 @@ const utils = {
             y += size;
         }
         return {x,y};
+    },
+    emitEvent(name, detail) {
+        const event = new CustomEvent(name, {
+            detail
+        });
+        document.dispatchEvent(event);
     }
     
 }

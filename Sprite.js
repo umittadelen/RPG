@@ -72,7 +72,7 @@ class Sprite{
 
     draw(ctx, cameraPerson) {
         const x = this.gameObject.x + utils.withGrid(8) - cameraPerson.x;
-        const y = this.gameObject.y - 12 + utils.withGrid(8) - cameraPerson.y;
+        const y = this.gameObject.y - 16 + utils.withGrid(8) - cameraPerson.y;
         const width = this.gameObject.width;
         const height = this.gameObject.height;
 
