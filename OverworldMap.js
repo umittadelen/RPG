@@ -1,6 +1,8 @@
 class OverworldMap {
     constructor(config) {
+        this.overworld = null;
         this.gameObjects = config.gameObjects;
+        this.cutsceneSpaces = config.cutsceneSpaces || {};
         this.walls = config.walls || {};
 
         this.lowerImage = new Image();
@@ -57,6 +59,28 @@ class OverworldMap {
         }
 
         this.isCutscenePlaying = false;
+
+        //Reset NPCs to their idle behavior
+        Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
+    }
+
+    checkForActionCutscene() {
+        const hero = this.gameObjects["hero"];
+        const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
+        const match = Object.values(this.gameObjects).find(object => {
+            return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
+        });
+        if (!this.isCutscenePlaying && match && match.talking.length) {
+            this.startCutscene(match.talking[0].events)
+        }
+    }
+
+    checkForFootstepCutscene() {
+        const hero = this.gameObjects["hero"];
+        const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
+        if (!this.isCutscenePlaying && match) {
+            this.startCutscene(match[0].events)
+        }
     }
 
     addWall(x,y) {
@@ -88,22 +112,12 @@ window.OverworldMaps = {
                 shadow: "./assets/empty.png"
             }),
             npc1: new Person({
-                x: utils.withGrid(10),
-                y: utils.withGrid(9),
+                x: utils.withGrid(7),
+                y: utils.withGrid(5),
                 src: "./assets/npc_walk.png",
                 width: 16,
                 height: 16,
-                shadow: "./assets/empty.png",
-                behaviorLoop: [
-                    {type: "walk", direction: "up"},
-                    {type: "walk", direction: "up"},
-                    {type: "walk", direction: "up"},
-                    {type: "stand", direction: "down", time: 400},
-                    {type: "walk", direction: "down"},
-                    {type: "walk", direction: "down"},
-                    {type: "walk", direction: "down"},
-                    {type: "stand", direction: "up", time: 400}
-                ]
+                shadow: "./assets/empty.png"
             }),
             npc2: new Person({
                 x: utils.withGrid(14),
@@ -113,14 +127,27 @@ window.OverworldMaps = {
                 height: 16,
                 shadow: "./assets/empty.png",
                 behaviorLoop: [
-                    {type: "walk", direction: "right"},
-                    {type: "stand", direction: "right", time: 800},
-                    {type: "walk", direction: "up"},
-                    {type: "stand", direction: "up", time: 800},
-                    {type: "walk", direction: "left"},
-                    {type: "stand", direction: "left", time: 800},
-                    {type: "walk", direction: "down"},
-                    {type: "stand", direction: "down", time: 800}
+                    {type: "stand", direction: "right", time: 200},
+                    {type: "stand", direction: "down", time: 800},
+                    {type: "stand", direction: "left", time: 600},
+                    {type: "stand", direction: "up", time: 1200},
+                    {type: "stand", direction: "left", time: 2000}
+                ],
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "I'm busy...", faceHero: "npc2"},
+                            {type: "textMessage", text: "Go away!"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                        ]
+                    }
                 ]
             })
         },
@@ -206,27 +233,72 @@ window.OverworldMaps = {
             [utils.asGridCoord(5,11)] : true,
             [utils.asGridCoord(4,12)] : true,
             [utils.asGridCoord(5,12)] : true,
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(6,4)]: [
+                {
+                    events: [
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "stand", direction: "up"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {type: "textMessage", text: "WAIT !...", faceHero: "npc1"},
+                        {type: "textMessage", text: "You need to register before reading"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                    ]
+                }
+            ],
+            [utils.asGridCoord(12,8)]: [
+                {
+                    events: [
+                        {type: "changeMap", map: "OtherLivingRoom"}
+                    ]
+                }
+            ]
         }
     },
-    Kitchen: {
+    OtherLivingRoom: {
         lowerSrc: "./assets/maps/LivingRoom/Lower.png",
         upperSrc: "./assets/maps/LivingRoom/Upper.png",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
-                x: utils.withGrid(8),
-                y: utils.withGrid(8),
+                x: utils.withGrid(11),
+                y: utils.withGrid(8)+16,
                 src: "./assets/npc_walk.png",
                 width: 16,
                 height: 16,
                 shadow: "./assets/empty.png"
             }),
-            npc1: new Person({
-                x: utils.withGrid(10),
+            npc2: new Person({
+                x: utils.withGrid(14),
                 y: utils.withGrid(9),
                 src: "./assets/npc_walk.png",
                 width: 16,
                 height: 16,
+                shadow: "./assets/empty.png",
+                behaviorLoop: [
+                    {type: "stand", direction: "right", time: 200},
+                    {type: "stand", direction: "down", time: 800},
+                    {type: "stand", direction: "left", time: 600},
+                    {type: "stand", direction: "up", time: 1200},
+                    {type: "stand", direction: "left", time: 2000}
+                ],
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "Are you the one who fell from the roof?", faceHero: "npc2"},
+                            {type: "textMessage", text: "We dont need you here!!!"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "up"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                            {who: "npc2", type: "walk", direction: "down"},
+                        ]
+                    }
+                ]
             })
         },
         walls:{
@@ -311,6 +383,27 @@ window.OverworldMaps = {
             [utils.asGridCoord(5,11)] : true,
             [utils.asGridCoord(4,12)] : true,
             [utils.asGridCoord(5,12)] : true,
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(6,4)]: [
+                {
+                    events: [
+                        {who: "hero", type: "walk", direction: "down"},
+                        {who: "hero", type: "stand", direction: "up"},
+                        {who: "npc1", type: "walk", direction: "left"},
+                        {type: "textMessage", text: "WAIT !...", faceHero: "npc1"},
+                        {type: "textMessage", text: "You need to register before reading"},
+                        {who: "npc1", type: "walk", direction: "right"},
+                    ]
+                }
+            ],
+            [utils.asGridCoord(12,8)]: [
+                {
+                    events: [
+                        {type: "changeMap", map: "LivingRoom"}
+                    ]
+                }
+            ]
         }
-    },
+    }
 }

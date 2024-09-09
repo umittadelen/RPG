@@ -16,6 +16,8 @@ class GameObject {
         this.behaviorLoop = config.behaviorLoop || [];
         this.behaviorLoopIndex = 0;
 
+        this.talking = config.talking || [];
+
     }
 
     mount(map) {
@@ -36,7 +38,7 @@ class GameObject {
 
         //dont do anything if there is a more important cutscene
         //or I don't have config to do anything anyway.
-        if (map.isCutscenePlaying || this.behaviorLoop.length === 0) {
+        if (map.isCutscenePlaying || this.behaviorLoop.length === 0 || this.isStanding) {
             return;
         }
 
