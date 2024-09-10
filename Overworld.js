@@ -73,12 +73,9 @@ class Overworld {
         
         this.startGameLoop();
 
-        /*this.map.startCutscene([
-            {type: "textMessage", text: "This is a test message!"},
-            { who: "hero", type: "walk",  direction: "down" },
-            { who: "hero", type: "walk",  direction: "left" },
-            { who: "npc1", type: "walk",  direction: "up"},
-            { who: "npc1", type: "stand",  direction: "up", time: 800}
-        ])*/
+        //this.map.startCutscene([
+            //{type: "changeMap", map: "OtherLivingRoom"}
+            //{type: "textMessage", text: "This is a test message!"}
+        //])
     }
 }
