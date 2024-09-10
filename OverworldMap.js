@@ -114,10 +114,20 @@ window.OverworldMaps = {
             npc1: new Person({
                 x: utils.withGrid(7),
                 y: utils.withGrid(5),
-                src: "./assets/npc_walk.png",
-                width: 16,
-                height: 16,
-                shadow: "./assets/empty.png"
+                src: "./assets/cats/cat (1).png",
+                width: 32,
+                height: 32,
+                shadow: "./assets/empty.png",
+                animations:{
+                    "idle-down": [[1,0]],
+                    "idle-right": [[1,2]],
+                    "idle-up": [[1,3]],
+                    "idle-left": [[1,1]],
+                    "walk-down": [[0,0],[1,0],[2,0],[1,0]],
+                    "walk-right": [[0,2],[1,2],[2,2],[1,2]],
+                    "walk-up": [[0,3],[1,3],[2,3],[1,3]],
+                    "walk-left": [[0,1],[1,1],[2,1],[1,1]]
+                }
             }),
             npc2: new Person({
                 x: utils.withGrid(14),
@@ -244,6 +254,7 @@ window.OverworldMaps = {
                         {type: "textMessage", text: "WAIT !...", faceHero: "npc1"},
                         {type: "textMessage", text: "You need to register before reading"},
                         {who: "npc1", type: "walk", direction: "right"},
+                        {who: "npc1", type: "stand", direction: "down", time:100}
                     ]
                 }
             ],

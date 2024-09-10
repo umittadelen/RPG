@@ -11,6 +11,16 @@ class GameObject {
             gameObject: this,
             src: config.src || "./assets/walk and idle.png",
             shadow: config.shadow || "./assets/empty.png",
+            animations: config.animations || {
+                "idle-down": [[1,0]],
+                "idle-right": [[1,2]],
+                "idle-up": [[1,3]],
+                "idle-left": [[1,1]],
+                "walk-down": [[0,0],[1,0],[2,0],[1,0]],
+                "walk-right": [[0,2],[1,2],[2,2],[1,2]],
+                "walk-up": [[0,1],[1,1],[2,1],[1,1]],
+                "walk-left": [[0,3],[1,3],[2,3],[1,3]]
+            }
         });
 
         this.behaviorLoop = config.behaviorLoop || [];
