@@ -19,16 +19,7 @@ class Sprite{
         }
 
         //Configure Animation & Initial State
-        this.animations = config.animations || {
-            "idle-down": [[0,0]],
-            "idle-right": [[0,2]],
-            "idle-up": [[0,1]],
-            "idle-left": [[0,3]],
-            "walk-down": [[1,0],[2,0],[3,0],[0,0]],
-            "walk-right": [[1,2],[2,2],[3,2],[0,2]],
-            "walk-up": [[1,1],[2,1],[3,1],[0,1]],
-            "walk-left": [[1,3],[2,3],[3,3],[0,3]]
-        }
+        this.animations = config.animations;
         this.currentAnimation = config.currentAnimation || "idle-down";
         this.currentAnimationFrame = 0;
 
@@ -84,7 +75,7 @@ class Sprite{
             frameX*width,frameY*height,          // left|top cut
             width,height, // width|height of cut
             x,y,
-            width,height, // width|height of image
+            16,16, // width|height of image
         )
 
         this.updateAnimationProgress();

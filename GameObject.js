@@ -12,14 +12,14 @@ class GameObject {
             src: config.src || "./assets/walk and idle.png",
             shadow: config.shadow || "./assets/empty.png",
             animations: config.animations || {
-                "idle-down": [[1,0]],
-                "idle-right": [[1,2]],
-                "idle-up": [[1,3]],
-                "idle-left": [[1,1]],
-                "walk-down": [[0,0],[1,0],[2,0],[1,0]],
-                "walk-right": [[0,2],[1,2],[2,2],[1,2]],
-                "walk-up": [[0,1],[1,1],[2,1],[1,1]],
-                "walk-left": [[0,3],[1,3],[2,3],[1,3]]
+                "idle-down": [[0,0]],
+                "idle-right": [[0,2]],
+                "idle-up": [[0,1]],
+                "idle-left": [[0,3]],
+                "walk-down": [[1,0],[2,0],[3,0],[0,0]],
+                "walk-right": [[1,2],[2,2],[3,2],[0,2]],
+                "walk-up": [[1,1],[2,1],[3,1],[0,1]],
+                "walk-left": [[1,3],[2,3],[3,3],[0,3]]
             }
         });
 
