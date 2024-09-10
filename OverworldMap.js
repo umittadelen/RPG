@@ -286,16 +286,13 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            {type: "textMessage", text: "Are you the one who fell from the roof?", faceHero: "npc2"},
-                            {type: "textMessage", text: "We dont need you here!!!"},
-                            {who: "npc2", type: "walk", direction: "up"},
-                            {who: "npc2", type: "walk", direction: "up"},
+                            {type: "textMessage", text: "How did you fell down?", faceHero: "npc2"},
+                            {type: "textMessage", text: "Are you ok?"},
                             {who: "npc2", type: "walk", direction: "up"},
                             {who: "npc2", type: "walk", direction: "up"},
                             {who: "npc2", type: "walk", direction: "down"},
                             {who: "npc2", type: "walk", direction: "down"},
-                            {who: "npc2", type: "walk", direction: "down"},
-                            {who: "npc2", type: "walk", direction: "down"},
+                            {type: "textMessage", text: "Do you need help?", faceHero: "npc2"},
                         ]
                     }
                 ]
@@ -394,13 +391,6 @@ window.OverworldMaps = {
                         {type: "textMessage", text: "WAIT !...", faceHero: "npc1"},
                         {type: "textMessage", text: "You need to register before reading"},
                         {who: "npc1", type: "walk", direction: "right"},
-                    ]
-                }
-            ],
-            [utils.asGridCoord(12,8)]: [
-                {
-                    events: [
-                        {type: "changeMap", map: "LivingRoom"}
                     ]
                 }
             ]
