@@ -318,10 +318,6 @@ window.OverworldMaps = {
                         events: [
                             {type: "textMessage", text: "How did you fell down?", faceHero: "npc2"},
                             {type: "textMessage", text: "Are you ok?"},
-                            {who: "npc2", type: "walk", direction: "up"},
-                            {who: "npc2", type: "walk", direction: "up"},
-                            {who: "npc2", type: "walk", direction: "down"},
-                            {who: "npc2", type: "walk", direction: "down"},
                             {type: "textMessage", text: "Do you need help?", faceHero: "npc2"},
                         ]
                     }
