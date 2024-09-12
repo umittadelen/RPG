@@ -66,6 +66,10 @@ class Sprite{
         const y = this.gameObject.y - 16 + utils.withGrid(8) - cameraPerson.y;
         const width = this.gameObject.width;
         const height = this.gameObject.height;
+        const sizewidth = this.gameObject.sizewidth;
+        const sizeheight = this.gameObject.sizeheight;
+        const xofset = this.gameObject.xofset;
+        const yofset = this.gameObject.yofset;
 
         this.isShadowLoaded && ctx.drawImage(this.shadow, x, y)
 
@@ -74,8 +78,8 @@ class Sprite{
         this.isLoaded && ctx.drawImage(this.image,
             frameX*width,frameY*height,          // left|top cut
             width,height, // width|height of cut
-            x,y,
-            16,16, // width|height of image
+            x+xofset,y+yofset,
+            sizewidth,sizeheight, // width|height of image
         )
 
         this.updateAnimationProgress();

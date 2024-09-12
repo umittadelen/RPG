@@ -6,6 +6,10 @@ class GameObject {
         this.direction = config.direction || "down";
         this.width = config.width || 16;
         this.height = config.height || 16;
+        this.sizewidth = config.sizewidth || 16;
+        this.sizeheight = config.sizeheight || 16;
+        this.xofset = config.xofset || 0;
+        this.yofset = config.yofset || 0;
 
         this.sprite = new Sprite({
             gameObject: this,

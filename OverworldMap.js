@@ -280,6 +280,26 @@ window.OverworldMaps = {
                 height: 16,
                 shadow: "./assets/empty.png"
             }),
+            chair: new Person({
+                x: utils.withGrid(11),
+                y: utils.withGrid(7),
+                src: "./assets/chair.png",
+                width: 16,
+                height: 32,
+                sizewidth: 16,
+                sizeheight: 32,
+                xofset: 0,
+                yofset: -16,
+                shadow: "./assets/empty.png",
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "I am not a chair!!!"},
+                            {type: "textMessage", text: "I identify myself as a chair"}
+                        ]
+                    }
+                ]
+            }),
             npc2: new Person({
                 x: utils.withGrid(14),
                 y: utils.withGrid(9),
