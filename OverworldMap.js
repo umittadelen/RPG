@@ -294,8 +294,7 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            {type: "textMessage", text: "I am not a chair!!!"},
-                            {type: "textMessage", text: "I identify myself as a chair"}
+                            {type: "textMessage", text: "I am not a chair!!!"}
                         ]
                     }
                 ]
